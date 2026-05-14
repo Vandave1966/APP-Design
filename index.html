@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>百年康养·鸿翔健康城 — 京西一站式退休生活综合体</title>
+<style>
+  :root {
+    --gold: #B8975A;
+    --gold-light: #D4B483;
+    --gold-dark: #8B6E3C;
+    --green: #4A7C59;
+    --green-light: #6AAF7E;
+    --green-bg: #F0F7F2;
+    --dark: #1A1A2E;
+    --gray: #666;
+    --light-gray: #F8F8F6;
+    --white: #FFFFFF;
+    --text: #333;
+    --border: #E8E0D0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; color: var(--text); background: var(--white); }
+  
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo-icon {
+    width: 44px; height: 44px; background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: white; font-weight: bold;
+  }
+  .nav-logo-text { line-height: 1.2; }
+  .nav-logo-text .brand { font-size: 18px; font-weight: 700; color: var(--dark); }
+  .nav-logo-text .sub { font-size: 12px; color: var(--gold); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 15px; transition: color 0.3s; position: relative; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta { 
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: white; padding: 10px 24px; border-radius: 25px;
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    box-shadow: 0 4px 15px rgba(184,151,90,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184,151,90,0.5); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0D1B2A 0%, #1A3A2E 40%, #0D2B1A 70%, #1A1A2E 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 100px 40px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(184,151,90,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(74,124,89,0.15) 0%, transparent 50%);
+  }
+  .hero-particles { position: absolute; inset: 0; overflow: hidden; }
+  .hero-particles span {
+    position: absolute; width: 2px; height: 2px; background: var(--gold);
+    border-radius: 50%; opacity: 0.6; animation: float 6s infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+    50% { transform: translateY(-30px) rotate(180deg); opacity: 0.3; }
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(184,151,90,0.15); border: 1px solid rgba(184,151,90,0.4);
+    padding: 8px 20px; border-radius: 30px; color: var(--gold-light);
+    font-size: 13px; letter-spacing: 3px; margin-bottom: 30px;
+  }
+  .hero-tag::before { content: '◆'; font-size: 8px; }
+  .hero-title { color: white; font-size: 56px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+  .hero-title span { color: var(--gold); display: block; }
+  .hero-subtitle { color: rgba(255,255,255,0.7); font-size: 20px; margin-bottom: 14px; letter-spacing: 1px; }
+  .hero-desc { color: rgba(255,255,255,0.5); font-size: 15px; margin-bottom: 50px; line-height: 1.8; }
+  .hero-stats {
+    display: flex; gap: 40px; justify-content: center; margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 42px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .hero-stat .unit { font-size: 14px; color: var(--gold-light); }
+  .hero-stat .label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; letter-spacing: 1px; }
+  .hero-stat .divider { width: 1px; background: rgba(255,255,255,0.15); align-self: stretch; display: none; }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: white; padding: 16px 40px; border-radius: 40px;
+    text-decoration: none; font-size: 16px; font-weight: 600;
+    box-shadow: 0 8px 30px rgba(184,151,90,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(184,151,90,0.6); }
+  .btn-secondary {
+    background: transparent; border: 2px solid rgba(255,255,255,0.4);
+    color: white; padding: 14px 36px; border-radius: 40px;
+    text-decoration: none; font-size: 16px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--gold); background: rgba(184,151,90,0.1); }
+  .hero-scroll {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; letter-spacing: 2px;
+  }
+  .scroll-arrow { animation: bounce 2s infinite; margin-top: 8px; font-size: 20px; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+  /* SECTIONS */
+  section { padding: 90px 40px; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-tag {
+    display: inline-block; padding: 6px 18px; border-radius: 20px;
+    font-size: 12px; letter-spacing: 3px; margin-bottom: 16px;
+    background: rgba(184,151,90,0.1); color: var(--gold); border: 1px solid rgba(184,151,90,0.3);
+  }
+  .section-title { font-size: 36px; font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+  .section-title span { color: var(--gold); }
+  .section-desc { color: var(--gray); font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+  /* INTRO */
+  .intro { background: var(--white); }
+  .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: center; }
+  .intro-visual {
+    background: linear-gradient(135deg, var(--dark) 0%, #1A3A2E 100%);
+    border-radius: 20px; padding: 50px 40px; color: white;
+    position: relative; overflow: hidden;
+  }
+  .intro-visual::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,151,90,0.3), transparent);
+  }
+  .intro-visual-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--gold); }
+  .intro-feature { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .intro-feature-icon { 
+    width: 40px; height: 40px; min-width: 40px;
+    background: rgba(184,151,90,0.15); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .intro-feature-text .ft { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .intro-feature-text .fd { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .intro-content .lead { font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 20px; line-height: 1.6; }
+  .intro-content p { color: var(--gray); font-size: 15px; line-height: 1.9; margin-bottom: 16px; }
+  .intro-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .intro-tag { 
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 13px; background: var(--green-bg); color: var(--green);
+    border: 1px solid rgba(74,124,89,0.2);
+  }
+
+  /* LOCATION */
+  .location { background: var(--light-gray); }
+  .location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .location-card {
+    background: white; border-radius: 16px; padding: 32px 28px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .location-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .location-card .icon { font-size: 36px; margin-bottom: 16px; }
+  .location-card .title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .location-card .content { color: var(--gray); font-size: 14px; line-height: 1.8; }
+  .location-card .highlight { color: var(--gold); font-weight: 600; font-size: 16px; }
+  .location-map {
+    max-width: 1200px; margin: 40px auto 0;
+    background: linear-gradient(135deg, #1A3A2E, #0D2B1A);
+    border-radius: 20px; padding: 50px; color: white;
+    display: flex; gap: 40px; align-items: center;
+    flex-wrap: wrap;
+  }
+  .map-left { flex: 1; min-width: 280px; }
+  .map-left h3 { font-size: 26px; font-weight: 700; color: var(--gold); margin-bottom: 20px; }
+  .map-route { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .route-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .route-line { flex: 1; height: 2px; background: rgba(184,151,90,0.3); }
+  .route-text { color: rgba(255,255,255,0.8); font-size: 14px; }
+  .route-time { color: var(--gold); font-weight: 700; font-size: 16px; min-width: 60px; text-align: right; }
+  .map-right { display: flex; flex-wrap: wrap; gap: 16px; flex: 1; min-width: 280px; }
+  .resource-chip {
+    background: rgba(184,151,90,0.15); border: 1px solid rgba(184,151,90,0.3);
+    padding: 8px 18px; border-radius: 20px; font-size: 13px; color: rgba(255,255,255,0.8);
+  }
+
+  /* FACILITIES */
+  .facilities { background: var(--white); }
+  .facilities-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .facility-card {
+    background: white; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .facility-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.1); }
+  .facility-card.featured { grid-column: span 2; }
+  .facility-header {
+    padding: 32px 36px 24px;
+    background: linear-gradient(135deg, #0D2B1A, #1A3A2E);
+    color: white;
+  }
+  .facility-header .tag {
+    font-size: 12px; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px;
+  }
+  .facility-header h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .facility-header .desc { font-size: 14px; color: rgba(255,255,255,0.6); }
+  .facility-body { padding: 28px 36px; }
+  .facility-specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+  .facility-spec { }
+  .facility-spec .sk { font-size: 12px; color: var(--gray); margin-bottom: 4px; }
+  .facility-spec .sv { font-size: 16px; font-weight: 700; color: var(--dark); }
+  .facility-spec .sv span { color: var(--gold); }
+  .facility-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .facility-item {
+    background: var(--green-bg); color: var(--green);
+    padding: 6px 14px; border-radius: 15px; font-size: 13px;
+    border: 1px solid rgba(74,124,89,0.2);
+  }
+
+  /* SERVICES */
+  .services { background: var(--light-gray); }
+  .services-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 50px; flex-wrap: wrap; }
+  .service-tab {
+    padding: 10px 24px; border-radius: 30px; border: 2px solid var(--border);
+    background: white; color: var(--gray); cursor: pointer; font-size: 14px;
+    transition: all 0.3s;
+  }
+  .service-tab.active { background: var(--gold); border-color: var(--gold); color: white; }
+  .services-content { max-width: 1200px; margin: 0 auto; }
+  .service-panel { display: none; }
+  .service-panel.active { display: block; }
+  .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .service-card {
+    background: white; border-radius: 16px; padding: 28px 24px;
+    border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .service-icon { font-size: 32px; margin-bottom: 14px; }
+  .service-name { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .service-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+  .service-badge { 
+    display: inline-block; margin-top: 12px;
+    padding: 4px 12px; border-radius: 12px; font-size: 12px;
+    background: rgba(184,151,90,0.1); color: var(--gold);
+  }
+
+  /* PRICING */
+  .pricing { background: var(--white); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .pricing-card {
+    border-radius: 20px; padding: 36px 30px;
+    border: 2px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .pricing-card.featured { 
+    border-color: var(--gold);
+    background: linear-gradient(160deg, #FDF8F0, white);
+    box-shadow: 0 10px 40px rgba(184,151,90,0.2);
+  }
+  .pricing-card.featured::before {
+    content: '推荐'; position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: white; padding: 4px 12px;
+    border-radius: 20px; font-size: 12px; font-weight: 600;
+  }
+  .pricing-icon { font-size: 40px; margin-bottom: 16px; }
+  .pricing-name { font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .pricing-target { font-size: 13px; color: var(--gray); margin-bottom: 20px; }
+  .pricing-price { margin-bottom: 24px; }
+  .pricing-price .amount { font-size: 40px; font-weight: 700; color: var(--gold); }
+  .pricing-price .unit { font-size: 14px; color: var(--gray); }
+  .pricing-price .original { font-size: 13px; color: #999; text-decoration: line-through; margin-left: 8px; }
+  .pricing-features { list-style: none; margin-bottom: 28px; }
+  .pricing-features li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--gray); display: flex; align-items: center; gap: 8px; }
+  .pricing-features li::before { content: '✓'; color: var(--green); font-weight: bold; }
+  .pricing-btn {
+    display: block; text-align: center; padding: 14px;
+    border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600;
+    background: var(--gold); color: white; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pricing-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(184,151,90,0.4); }
+
+  /* SEASONS */
+  .seasons { background: linear-gradient(160deg, #0D1B2A 0%, #1A3A2E 100%); padding: 90px 40px; }
+  .seasons .section-title { color: white; }
+  .seasons .section-desc { color: rgba(255,255,255,0.6); }
+  .seasons .section-tag { background: rgba(184,151,90,0.15); }
+  .seasons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .season-card {
+    border-radius: 16px; padding: 28px 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    transition: transform 0.3s, background 0.3s;
+    cursor: pointer;
+  }
+  .season-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.1); }
+  .season-emoji { font-size: 40px; margin-bottom: 16px; }
+  .season-name { font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+  .season-period { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+  .season-theme { font-size: 15px; font-weight: 600; color: white; margin-bottom: 12px; }
+  .season-items { }
+  .season-item { font-size: 13px; color: rgba(255,255,255,0.6); padding: 4px 0; display: flex; align-items: center; gap: 6px; }
+  .season-item::before { content: '→'; color: var(--gold); font-size: 11px; }
+  .season-package {
+    margin-top: 16px; padding: 12px 16px; border-radius: 10px;
+    background: rgba(184,151,90,0.15); border: 1px solid rgba(184,151,90,0.3);
+  }
+  .season-package .pp { font-size: 11px; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 4px; }
+  .season-package .pa { font-size: 18px; font-weight: 700; color: var(--gold); }
+  .season-package .pu { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+  /* BRAND */
+  .brand { background: var(--light-gray); }
+  .brand-timeline { max-width: 900px; margin: 0 auto; position: relative; }
+  .brand-timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--border); transform: translateX(-50%); }
+  .brand-item { display: flex; gap: 40px; align-items: flex-start; margin-bottom: 50px; }
+  .brand-item:nth-child(even) { flex-direction: row-reverse; }
+  .brand-item:nth-child(even) .brand-dot { order: 2; }
+  .brand-item:nth-child(even) .brand-content { text-align: right; }
+  .brand-content { flex: 1; }
+  .brand-year { font-size: 32px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  .brand-text { font-size: 14px; color: var(--gray); line-height: 1.8; }
+  .brand-dot-wrap { display: flex; justify-content: center; min-width: 20px; padding-top: 8px; position: relative; }
+  .brand-dot { 
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--gold); border: 3px solid white;
+    box-shadow: 0 0 0 3px rgba(184,151,90,0.3);
+    z-index: 1; position: relative;
+  }
+
+  /* MEDIA STRATEGY */
+  .media { background: var(--white); }
+  .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .media-card {
+    border-radius: 16px; padding: 30px 26px;
+    border: 1px solid var(--border);
+    background: white; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .media-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .media-icon { font-size: 36px; margin-bottom: 16px; }
+  .media-title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .media-desc { font-size: 13px; color: var(--gray); line-height: 1.7; margin-bottom: 16px; }
+  .media-kpi { 
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: 10px; background: var(--light-gray);
+  }
+  .media-kpi .kv { font-size: 20px; font-weight: 700; color: var(--gold); }
+  .media-kpi .kl { font-size: 12px; color: var(--gray); }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, #0D2B1A 0%, #1A3A2E 50%, #0D1B2A 100%);
+    padding: 90px 40px; text-align: center;
+  }
+  .cta-section h2 { font-size: 40px; font-weight: 700; color: white; margin-bottom: 16px; }
+  .cta-section h2 span { color: var(--gold); }
+  .cta-section p { color: rgba(255,255,255,0.6); font-size: 16px; margin-bottom: 40px; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .cta-info { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+  .cta-info-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.6); font-size: 14px; }
+  .cta-info-item span { color: var(--gold); font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.6); 
+    padding: 60px 40px 30px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto 40px; }
+  .footer-brand .logo { font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
+  .footer-brand .tagline { font-size: 13px; line-height: 1.8; margin-bottom: 20px; }
+  .footer-contact { display: flex; flex-direction: column; gap: 10px; }
+  .footer-contact a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-col h4 { color: white; font-size: 15px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .footer-col a { display: block; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { 
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+  .footer-badge {
+    padding: 4px 12px; border-radius: 12px;
+    background: rgba(184,151,90,0.15); border: 1px solid rgba(184,151,90,0.3);
+    color: var(--gold-light); font-size: 11px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .intro-grid, .facilities-grid.two-col { grid-template-columns: 1fr; }
+    .facilities-grid .facility-card.featured { grid-column: span 1; }
+    .pricing-grid, .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .seasons-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 42px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 24px; }
+    .hero-stat .num { font-size: 32px; }
+    .hero-title { font-size: 32px; }
+    section { padding: 60px 20px; }
+    .location-grid, .pricing-grid, .service-grid, .media-grid { grid-template-columns: 1fr; }
+    .seasons-grid { grid-template-columns: 1fr; }
+    .brand-item, .brand-item:nth-child(even) { flex-direction: column; }
+    .brand-timeline::before { left: 0; }
+    .brand-item:nth-child(even) .brand-content { text-align: left; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">康</div>
+    <div class="nav-logo-text">
+      <div class="brand">百年康养·鸿翔健康城</div>
+      <div class="sub">CENTURY HEALTH · HONGXIANG</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#intro" class="active">项目简介</a>
+    <a href="#facilities">核心配套</a>
+    <a href="#services">服务体系</a>
+    <a href="#pricing">入住价格</a>
+    <a href="#seasons">四季康养</a>
+    <a href="#brand">品牌历程</a>
+  </div>
+  <a href="#cta" class="nav-cta">预约参观</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-particles">
+    <span style="left:10%;top:20%;animation-delay:0s;animation-duration:7s"></span>
+    <span style="left:20%;top:60%;animation-delay:1s;animation-duration:9s"></span>
+    <span style="left:40%;top:15%;animation-delay:2s;animation-duration:6s"></span>
+    <span style="left:60%;top:75%;animation-delay:0.5s;animation-duration:8s"></span>
+    <span style="left:75%;top:30%;animation-delay:1.5s;animation-duration:7s"></span>
+    <span style="left:85%;top:50%;animation-delay:3s;animation-duration:5s"></span>
+    <span style="left:50%;top:45%;animation-delay:2.5s;animation-duration:10s"></span>
+    <span style="left:30%;top:80%;animation-delay:4s;animation-duration:6s"></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">京西一站式退休生活医康养居综合体</div>
+    <h1 class="hero-title">
+      百年康养
+      <span>鸿翔健康城</span>
+    </h1>
+    <p class="hero-subtitle">河北怀来 · 对接京津冀 · 高铁半小时抵京</p>
+    <p class="hero-desc">
+      总占地1070亩，规划"一城五园"<br>
+      医疗·康复·养老·旅居·智慧 五位一体全维康养
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">1070<span class="unit">亩</span></div>
+        <div class="label">总占地面积</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">650<span class="unit">张</span></div>
+        <div class="label">医养床位</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">180<span class="unit">张</span></div>
+        <div class="label">二级医院床位</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">85<span class="unit">项</span></div>
+        <div class="label">增值服务项目</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">查看入住方案</a>
+      <a href="#facilities" class="btn-secondary">了解核心配套</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    向下探索
+    <div class="scroll-arrow">↓</div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro" id="intro">
+  <div class="section-header">
+    <div class="section-tag">PROJECT OVERVIEW</div>
+    <h2 class="section-title">一句话认识<span>鸿翔健康城</span></h2>
+    <p class="section-desc">位于河北怀来，对接京津冀的京西一站式退休生活医康养居综合体</p>
+  </div>
+  <div class="intro-grid" style="max-width:1200px;margin:0 auto;">
+    <div class="intro-visual">
+      <div class="intro-visual-title">🏙️ 项目核心亮点</div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">🏥</div>
+        <div class="intro-feature-text">
+          <div class="ft">平安医院 · 二级综合医院</div>
+          <div class="fd">180张床位 · 15200㎡ · 20+临床科室 · 三甲专家坐诊 · 中西医结合</div>
+        </div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">🌿</div>
+        <div class="intro-feature-text">
+          <div class="ft">荣瑷医养中心 · 星级标准</div>
+          <div class="fd">650张床位 · 24小时医护 · VIP豪华套房 · 安宁疗愈区</div>
+        </div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">🏠</div>
+        <div class="intro-feature-text">
+          <div class="ft">70年产权康养住宅</div>
+          <div class="fd">62-112㎡多种户型 · 毛坯6800元/㎡起 · 精装7988元/㎡</div>
+        </div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">🎯</div>
+        <div class="intro-feature-text">
+          <div class="ft">全域适老化 + 智慧全覆盖</div>
+          <div class="fd">1.15米加宽入户门 · 毫米波雷达 · 跌倒报警 · 24h监护</div>
+        </div>
+      </div>
+      <div class="intro-feature">
+        <div class="intro-feature-icon">🎨</div>
+        <div class="intro-feature-text">
+          <div class="ft">九雅拾乐 · 全龄文化空间</div>
+          <div class="fd">KTV · 影院 · 棋牌 · 书画 · 咖啡书吧 · 瑜伽舞蹈</div>
+        </div>
+      </div>
+    </div>
+    <div class="intro-content">
+      <div class="lead">京西最具性价比的一站式康养综合体，两个价格体系 + 两种入住模式</div>
+      <p>鸿翔健康城响应<strong>健康中国</strong>与<strong>京津冀协同发展</strong>战略，承接北京非首都功能疏解，打造医康养居综合体。一期悦园已建成，总建筑面积20万㎡，含康养住宅与100套公寓。</p>
+      <p>项目地处河北怀来，与北京延庆、昌平、门头沟接壤，<strong>京张高铁半小时</strong>直达北京，距北京中心约100公里。首都水源地官厅水库、88℃高温温泉近在咫尺。</p>
+      <p>构建<strong>居家/社区/机构三级养老服务体系</strong>，面向京津冀长者提供全模式康养。在北京月租8000-15000元的养老服务，在健康城仅需<strong style="color:var(--gold)">4500元</strong>即可享有。</p>
+      <div class="intro-tags">
+        <span class="intro-tag">现房可租可买</span>
+        <span class="intro-tag">全龄友好</span>
+        <span class="intro-tag">智慧安防</span>
+        <span class="intro-tag">医养结合</span>
+        <span class="intro-tag">旅居疗养</span>
+        <span class="intro-tag">保值增值</span>
+        <span class="intro-tag">京张高铁直达</span>
+        <span class="intro-tag">生态优质</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location" id="location">
+  <div class="section-header">
+    <div class="section-tag">LOCATION & RESOURCES</div>
+    <h2 class="section-title">区位优势与<span>生态资源</span></h2>
+    <p class="section-desc">怀来，一个连接京津冀的康养宝地，自然资源与人文底蕴兼备</p>
+  </div>
+  <div class="location-grid">
+    <div class="location-card">
+      <div class="icon">🚄</div>
+      <div class="title">交通优势</div>
+      <div class="content">
+        <div class="highlight">京张高铁 · 半小时抵京</div>
+        <br>距北京中心约100公里<br>
+        京藏/京新/京礼高速贯穿<br>
+        与延庆、昌平、门头沟接壤
+      </div>
+    </div>
+    <div class="location-card">
+      <div class="icon">🌊</div>
+      <div class="title">生态资源</div>
+      <div class="content">
+        <div class="highlight">官厅水库 · 首都水源地</div>
+        <br>88℃高温天然温泉<br>
+        官厅湖畔千年杏林<br>
+        湿地公园百里荷花
+      </div>
+    </div>
+    <div class="location-card">
+      <div class="icon">🏯</div>
+      <div class="title">文旅资源</div>
+      <div class="content">
+        <div class="highlight">鸡鸣驿 · 国家历史文化名镇</div>
+        <br>八达岭长城 · 世界遗产<br>
+        董存瑞纪念馆<br>
+        世界葡萄酒之乡
+      </div>
+    </div>
+  </div>
+  <div class="location-map">
+    <div class="map-left">
+      <h3>🗺️ 时间距离</h3>
+      <div class="map-route">
+        <div class="route-dot" style="background:#4A7C59"></div>
+        <div class="route-line"></div>
+        <div class="route-text">北京西站</div>
+        <div class="route-time">30分钟</div>
+      </div>
+      <div class="map-route">
+        <div class="route-dot"></div>
+        <div class="route-line"></div>
+        <div class="route-text">延庆区</div>
+        <div class="route-time">15分钟</div>
+      </div>
+      <div class="map-route">
+        <div class="route-dot"></div>
+        <div class="route-line"></div>
+        <div class="route-text">八达岭长城</div>
+        <div class="route-time">40分钟</div>
+      </div>
+      <div class="map-route">
+        <div class="route-dot"></div>
+        <div class="route-line"></div>
+        <div class="route-text">鸡鸣驿古城</div>
+        <div class="route-time">25分钟</div>
+      </div>
+    </div>
+    <div class="map-right">
+      <div class="resource-chip">🌿 官厅水库湿地</div>
+      <div class="resource-chip">♨️ 88℃高温温泉</div>
+      <div class="resource-chip">🍷 世界葡萄酒之乡</div>
+      <div class="resource-chip">🌸 千年杏林花海</div>
+      <div class="resource-chip">🏯 鸡鸣驿古城</div>
+      <div class="resource-chip">🏔️ 八达岭长城</div>
+      <div class="resource-chip">🌾 东水泉村手工艺</div>
+      <div class="resource-chip">⛺ 天漠音乐节</div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="facilities" id="facilities">
+  <div class="section-header">
+    <div class="section-tag">CORE FACILITIES</div>
+    <h2 class="section-title">核心配套<span>·五大设施</span></h2>
+    <p class="section-desc">二级医院+星级医养+智慧适老，构建完整的健康防护网络</p>
+  </div>
+  <div class="facilities-grid" style="max-width:1200px;margin:0 auto;">
+    <div class="facility-card featured">
+      <div class="facility-header">
+        <div class="tag">MEDICAL CENTER</div>
+        <h3>🏥 平安医院 · 二级综合医院</h3>
+        <div class="desc">中西医结合，中医为特色、康复为核心，老年病/慢病管理，小病不出社区</div>
+      </div>
+      <div class="facility-body">
+        <div class="facility-specs">
+          <div class="facility-spec"><div class="sk">医院等级</div><div class="sv">二级综合医院</div></div>
+          <div class="facility-spec"><div class="sk">床位数量</div><div class="sv"><span>180</span> 张</div></div>
+          <div class="facility-spec"><div class="sk">建筑面积</div><div class="sv"><span>15,200</span> ㎡</div></div>
+          <div class="facility-spec"><div class="sk">临床科室</div><div class="sv"><span>20+</span> 个</div></div>
+        </div>
+        <div class="facility-list">
+          <span class="facility-item">三甲专家坐诊</span>
+          <span class="facility-item">中医特色诊疗</span>
+          <span class="facility-item">康复医学中心</span>
+          <span class="facility-item">老年病科</span>
+          <span class="facility-item">慢病管理</span>
+          <span class="facility-item">绿色就医通道</span>
+          <span class="facility-item">24h急诊服务</span>
+          <span class="facility-item">远程会诊</span>
+        </div>
+      </div>
+    </div>
+    <div class="facility-card">
+      <div class="facility-header">
+        <div class="tag">NURSING CENTER</div>
+        <h3>🌿 荣瑷医养中心</h3>
+        <div class="desc">星级标准，24小时医护团队，专业失能失智照护</div>
+      </div>
+      <div class="facility-body">
+        <div class="facility-specs">
+          <div class="facility-spec"><div class="sk">床位数量</div><div class="sv"><span>650</span> 张</div></div>
+          <div class="facility-spec"><div class="sk">服务级别</div><div class="sv">星级标准</div></div>
+        </div>
+        <div class="facility-list">
+          <span class="facility-item">VIP豪华套房</span>
+          <span class="facility-item">安宁疗愈区</span>
+          <span class="facility-item">失能失智照护</span>
+          <span class="facility-item">7天免费试住</span>
+          <span class="facility-item">24h医护值守</span>
+          <span class="facility-item">一键紧急呼叫</span>
+        </div>
+      </div>
+    </div>
+    <div class="facility-card">
+      <div class="facility-header">
+        <div class="tag">SMART LIVING</div>
+        <h3>🤖 全域适老化+智慧系统</h3>
+        <div class="desc">全屋无障碍设计，智能传感守护每一位长者</div>
+      </div>
+      <div class="facility-body">
+        <div class="facility-list">
+          <span class="facility-item">1.15米加宽入户门</span>
+          <span class="facility-item">毫米波雷达监护</span>
+          <span class="facility-item">跌倒自动报警</span>
+          <span class="facility-item">智能床垫监测</span>
+          <span class="facility-item">感应夜灯</span>
+          <span class="facility-item">防滑地砖全覆盖</span>
+          <span class="facility-item">人脸识别门禁</span>
+          <span class="facility-item">360°安防监控</span>
+          <span class="facility-item">一卡通管理</span>
+        </div>
+      </div>
+    </div>
+    <div class="facility-card">
+      <div class="facility-header">
+        <div class="tag">VITALITY CENTER</div>
+        <h3>🎨 活力中心 · 九雅拾乐</h3>
+        <div class="desc">全龄文体空间，让生命充满活力与乐趣</div>
+      </div>
+      <div class="facility-body">
+        <div class="facility-list">
+          <span class="facility-item">健身房</span>
+          <span class="facility-item">游泳池</span>
+          <span class="facility-item">KTV包厢</span>
+          <span class="facility-item">电影院</span>
+          <span class="facility-item">棋牌室</span>
+          <span class="facility-item">书画室</span>
+          <span class="facility-item">阅览室</span>
+          <span class="facility-item">咖啡书吧</span>
+          <span class="facility-item">瑜伽舞蹈室</span>
+          <span class="facility-item">手工工坊</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div class="section-tag">SERVICE SYSTEM</div>
+    <h2 class="section-title">服务体系<span>·全周期照护</span></h2>
+    <p class="section-desc">基础服务+分级照护+旅居服务+增值服务，覆盖全生命周期</p>
+  </div>
+  <div class="services-tabs">
+    <div class="service-tab active" onclick="switchTab('basic')">基础服务</div>
+    <div class="service-tab" onclick="switchTab('care')">分级照护</div>
+    <div class="service-tab" onclick="switchTab('tourism')">旅居服务</div>
+    <div class="service-tab" onclick="switchTab('value')">增值服务</div>
+  </div>
+  <div class="services-content">
+    <div class="service-panel active" id="panel-basic">
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">🏥</div>
+          <div class="service-name">健康管理</div>
+          <div class="service-desc">建立个人健康档案，定期体检评估，慢病跟踪管理，医生早查房，远程健康监测</div>
+          <div class="service-badge">全天候</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🍽️</div>
+          <div class="service-name">生活照料</div>
+          <div class="service-desc">专业护理员，日常起居协助，营养餐厅三餐供应，低糖低盐适老菜单，家属可实时查看菜单</div>
+          <div class="service-badge">一日三餐</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎭</div>
+          <div class="service-name">文娱生活</div>
+          <div class="service-desc">每日文化课程，节日庆典活动，书画诗词，歌唱舞蹈，老年大学课程，兴趣社群</div>
+          <div class="service-badge">九雅拾乐</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🧠</div>
+          <div class="service-name">心理支持</div>
+          <div class="service-desc">专业心理咨询师，情绪疏导，社交陪伴，家庭关系协调，认知功能训练</div>
+          <div class="service-badge">专业团队</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <div class="service-name">安全保障</div>
+          <div class="service-desc">24h紧急呼叫响应，智能监护系统，应急救援预案，全域安防覆盖，家属实时推送</div>
+          <div class="service-badge">24小时</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚗</div>
+          <div class="service-name">便利配套</div>
+          <div class="service-desc">就医绿色通道，购物代办，交通接送，家政服务，快递代收，行李托运</div>
+          <div class="service-badge">贴心管家</div>
+        </div>
+      </div>
+    </div>
+    <div class="service-panel" id="panel-care">
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">⭐</div>
+          <div class="service-name">照护一级</div>
+          <div class="service-desc">15类98项精细服务，12小时护理员在场，适合自理能力较好的长者，日常辅助与健康监护</div>
+          <div class="service-badge">12h护理</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⭐⭐</div>
+          <div class="service-name">照护二级</div>
+          <div class="service-desc">15类99项全面服务，24小时专职护理员陪护，适合半自理及需要专业照护的长者</div>
+          <div class="service-badge">24h专护</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💎</div>
+          <div class="service-name">失能失智专区</div>
+          <div class="service-desc">专业认知症照护，记忆疗法，感官刺激训练，家属培训指导，7天免费试住体验</div>
+          <div class="service-badge">专业失智照护</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌸</div>
+          <div class="service-name">安宁疗愈</div>
+          <div class="service-desc">生命末期关怀，舒缓疼痛管理，心理精神支持，家庭陪伴协助，有尊严地走完最后一程</div>
+          <div class="service-badge">安宁疗愈区</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏃</div>
+          <div class="service-name">康复训练</div>
+          <div class="service-desc">物理治疗，作业治疗，言语治疗，中医针灸推拿，运动功能恢复，术后康复</div>
+          <div class="service-badge">康复核心</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <div class="service-name">健康评估</div>
+          <div class="service-desc">入住前全面健康评估，定期功能评估，照护计划调整，家属沟通报告，持续质量改进</div>
+          <div class="service-badge">一站式评估</div>
+        </div>
+      </div>
+    </div>
+    <div class="service-panel" id="panel-tourism">
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">🌿</div>
+          <div class="service-name">湿地深呼吸</div>
+          <div class="service-desc">官厅湖畔晨练，湿地公园观鸟，医护随行，生态自然疗愈，3天2晚套餐599-799元/人</div>
+          <div class="service-badge">3天2晚 · ¥599起</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🍷</div>
+          <div class="service-name">葡园微醺</div>
+          <div class="service-desc">世界葡萄酒之窗参观，桑干酒庄品鉴，微醺社交酒会，露台落日，2天1晚套餐399-499元/人</div>
+          <div class="service-badge">2天1晚 · ¥399起</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎖️</div>
+          <div class="service-name">流金岁月</div>
+          <div class="service-desc">红色教育基地，鸡鸣驿古城，老歌KTV，大锅饭怀旧餐，老兵座谈，3天2晚套餐699-899元/人</div>
+          <div class="service-badge">3天2晚 · ¥699起</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">♨️</div>
+          <div class="service-name">温泉芳香疗愈</div>
+          <div class="service-desc">88℃高温温泉，法式芳香疗愈，红酒浴，矿物泥敷体，深度身心放松，高端康养体验</div>
+          <div class="service-badge">高端体验</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌺</div>
+          <div class="service-name">春生官厅</div>
+          <div class="service-desc">千年杏花海，中医养生户外课，摄影赛，采茶尝鲜，放飞纸鸢，14天/28天长住套餐</div>
+          <div class="service-badge">春季专属</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌙</div>
+          <div class="service-name">夏凉避暑</div>
+          <div class="service-desc">25℃清凉怀来，天漠音乐节医护专场，星空书画之夜，湿地夜航船，30天避暑长住</div>
+          <div class="service-badge">夏季专属</div>
+        </div>
+      </div>
+    </div>
+    <div class="service-panel" id="panel-value">
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">💆</div>
+          <div class="service-name">中医理疗</div>
+          <div class="service-desc">针灸、推拿、刮痧、拔罐、中药熏蒸，每次专属调理方案，由执业中医师主诊</div>
+          <div class="service-badge">9大类85项</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎓</div>
+          <div class="service-name">老年大学</div>
+          <div class="service-desc">九雅拾乐OMO全国寄宿制老年大学，书法、绘画、诗词、音乐、舞蹈、摄影等九大雅学</div>
+          <div class="service-badge">九雅拾乐</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <div class="service-name">文化康养游学</div>
+          <div class="service-desc">疗程+课程+旅程"三程"结合，帮助50+新中老年人开启健康快乐的全新生活方式</div>
+          <div class="service-badge">三程融合</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">👨‍👩‍👧</div>
+          <div class="service-name">亲子家庭套餐</div>
+          <div class="service-desc">子女陪同体验，代际互动活动，家属健康讲座，亲子摄影，周末家庭康养日</div>
+          <div class="service-badge">全龄陪伴</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <div class="service-name">企业疗休养</div>
+          <div class="service-desc">团队建设，健康体检，压力管理课程，生态徒步，葡萄酒品鉴，定制化企业关怀套餐</div>
+          <div class="service-badge">企业定制</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📱</div>
+          <div class="service-name">智慧管家</div>
+          <div class="service-desc">APP实时查看健康数据，家属随时视频探望，菜单预定，服务预约，一键呼叫管家</div>
+          <div class="service-badge">APP专属功能</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-header">
+    <div class="section-tag">PRICING</div>
+    <h2 class="section-title">入住方案<span>·两种模式</span></h2>
+    <p class="section-desc">产权+租赁双模式，灵活满足不同需求，京西最具性价比的康养选择</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-icon">🏡</div>
+      <div class="pricing-name">康养住宅·产权模式</div>
+      <div class="pricing-target">适合：长期定居 / 资产配置</div>
+      <div class="pricing-price">
+        <span class="amount">6800</span>
+        <span class="unit">元/㎡起（毛坯）</span>
+      </div>
+      <ul class="pricing-features">
+        <li>70年土地使用权</li>
+        <li>62/74/106/110/112㎡多种户型</li>
+        <li>精装版7988元/㎡起</li>
+        <li>现房·拎包可入住</li>
+        <li>产权可继承可出售</li>
+        <li>享社区全部配套服务</li>
+      </ul>
+      <a href="#cta" class="pricing-btn">咨询购房方案</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-icon">🌿</div>
+      <div class="pricing-name">康养公寓·长租模式</div>
+      <div class="pricing-target">适合：旅居疗养 / 试住体验</div>
+      <div class="pricing-price">
+        <span class="amount">150</span>
+        <span class="unit">元/天起（尊享优惠价）</span>
+        <span class="original">原价300-420元/天</span>
+      </div>
+      <ul class="pricing-features">
+        <li>连续入住满3个月享优惠</li>
+        <li>62-110㎡星级公寓</li>
+        <li>含基础生活服务</li>
+        <li>含健康档案建立</li>
+        <li>医院绿色就诊通道</li>
+        <li>活力中心免费使用</li>
+      </ul>
+      <a href="#cta" class="pricing-btn">立即预约入住</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-icon">🏥</div>
+      <div class="pricing-name">医养中心·全护模式</div>
+      <div class="pricing-target">适合：失能失智 / 术后康复</div>
+      <div class="pricing-price">
+        <span class="amount">4500</span>
+        <span class="unit">元/月起（照护一级）</span>
+      </div>
+      <ul class="pricing-features">
+        <li>650张星级床位</li>
+        <li>24小时专职护理</li>
+        <li>二级医院全程保障</li>
+        <li>7天免费试住体验</li>
+        <li>照护一级/二级可选</li>
+        <li>安宁疗愈区专属服务</li>
+      </ul>
+      <a href="#cta" class="pricing-btn">预约7天免费试住</a>
+    </div>
+  </div>
+</section>
+
+<!-- SEASONS -->
+<section class="seasons" id="seasons">
+  <div class="section-header">
+    <div class="section-tag">FOUR SEASONS WELLNESS</div>
+    <h2 class="section-title">四季康养<span>·旅居计划</span></h2>
+    <p class="section-desc">以"一核四翼"为资源底座，深度嵌入怀来县34项统筹文旅活动，四时皆有精彩</p>
+  </div>
+  <div class="seasons-grid">
+    <div class="season-card">
+      <div class="season-emoji">🌸</div>
+      <div class="season-name">春生</div>
+      <div class="season-period">3月 - 5月</div>
+      <div class="season-theme">唤醒身心·花香医养·慢生活重启</div>
+      <div class="season-items">
+        <div class="season-item">杏花海踏青+中医养生课</div>
+        <div class="season-item">春分摄影赛·官厅湖畔</div>
+        <div class="season-item">谷雨采茶尝鲜会</div>
+        <div class="season-item">清明手绘纸鸢放飞</div>
+        <div class="season-item">海棠花季徒步</div>
+      </div>
+      <div class="season-package">
+        <div class="pp">14天/28天长住套餐</div>
+        <div class="pa">150<span class="pu">元/天起</span></div>
+      </div>
+    </div>
+    <div class="season-card">
+      <div class="season-emoji">☀️</div>
+      <div class="season-name">夏长</div>
+      <div class="season-period">6月 - 8月</div>
+      <div class="season-theme">身心清凉·慢病调理·夜游社交</div>
+      <div class="season-items">
+        <div class="season-item">25℃清凉避暑长住</div>
+        <div class="season-item">天漠音乐节医护专场</div>
+        <div class="season-item">荷塘旅拍日</div>
+        <div class="season-item">立秋星空书画之夜</div>
+        <div class="season-item">湿地夜航船观鸟</div>
+      </div>
+      <div class="season-package">
+        <div class="pp">30天避暑长住套餐</div>
+        <div class="pa">150<span class="pu">元/天起</span></div>
+      </div>
+    </div>
+    <div class="season-card">
+      <div class="season-emoji">🍂</div>
+      <div class="season-name">秋收</div>
+      <div class="season-period">9月 - 11月</div>
+      <div class="season-theme">丰收疗愈·葡萄文化·深度养生</div>
+      <div class="season-items">
+        <div class="season-item">葡园采摘+品鉴社交</div>
+        <div class="season-item">怀来国际马拉松医护随行</div>
+        <div class="season-item">九雅拾乐秋季文化节</div>
+        <div class="season-item">金秋摄影大赛</div>
+        <div class="season-item">重阳登高健走活动</div>
+      </div>
+      <div class="season-package">
+        <div class="pp">2天1晚葡园品鉴套餐</div>
+        <div class="pa">399<span class="pu">元/人起</span></div>
+      </div>
+    </div>
+    <div class="season-card">
+      <div class="season-emoji">❄️</div>
+      <div class="season-name">冬藏</div>
+      <div class="season-period">12月 - 2月</div>
+      <div class="season-theme">温泉疗愈·暖冬养生·节日团圆</div>
+      <div class="season-items">
+        <div class="season-item">88℃温泉法式疗愈</div>
+        <div class="season-item">冬季滑雪体验</div>
+        <div class="season-item">春节家庭团圆套餐</div>
+        <div class="season-item">冬日中医进补讲座</div>
+        <div class="season-item">年终健康总结评估</div>
+      </div>
+      <div class="season-package">
+        <div class="pp">3天2晚温泉疗愈套餐</div>
+        <div class="pa">699<span class="pu">元/人起</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND HISTORY -->
+<section class="brand" id="brand">
+  <div class="section-header">
+    <div class="section-tag">BRAND HISTORY</div>
+    <h2 class="section-title">百年康养<span>·品牌历程</span></h2>
+    <p class="section-desc">25年深耕康养领域，从建筑教育到温泉康养，从研究咨询到运营落地</p>
+  </div>
+  <div class="brand-timeline">
+    <div class="brand-item">
+      <div class="brand-content">
+        <div class="brand-year">1999</div>
+        <div class="brand-text">百年建筑品牌创立。主营专业论坛、建筑教育、传媒出版、境外考察。与中国城市规划学会等联合举办50余场专业论坛，超6000人次参与。与清华大学等联合举办超20届房地产EMBA总裁班，培养3000+企业家学员。</div>
+      </div>
+      <div class="brand-dot-wrap"><div class="brand-dot"></div></div>
+      <div style="flex:1"></div>
+    </div>
+    <div class="brand-item">
+      <div style="flex:1"></div>
+      <div class="brand-dot-wrap"><div class="brand-dot"></div></div>
+      <div class="brand-content">
+        <div class="brand-year">2009</div>
+        <div class="brand-text">战略转型，百年康养开始专注康养领域发展。主营投资管理、研究咨询、运营管理、教育传媒四大业务板块，深度布局中国康养产业。</div>
+      </div>
+    </div>
+    <div class="brand-item">
+      <div class="brand-content">
+        <div class="brand-year">2012</div>
+        <div class="brand-text">主编出版住建部软课题成果《社会力量参与老年住区建设的模式和相关标准》，创始人朱文俊先生多次接受中央电视台等主流媒体采访报道。</div>
+      </div>
+      <div class="brand-dot-wrap"><div class="brand-dot"></div></div>
+      <div style="flex:1"></div>
+    </div>
+    <div class="brand-item">
+      <div style="flex:1"></div>
+      <div class="brand-dot-wrap"><div class="brand-dot"></div></div>
+      <div class="brand-content">
+        <div class="brand-year">2014—2018</div>
+        <div class="brand-text">与法国薇姿公司签署战略合作协议，在中国组建合资公司，开展温泉康养咨询业务，推动中国温泉行业从文旅转向与康养融合。目前仍为法国薇姿中国区温泉康养业务的紧密合作伙伴。</div>
+      </div>
+    </div>
+    <div class="brand-item">
+      <div class="brand-content">
+        <div class="brand-year">2020</div>
+        <div class="brand-text">在中华老人文化交流促进会、中国老龄产业协会等支持下，成为"九雅拾乐OMO全国寄宿制老年大学"、"全国文化康养活动基地"等项目的指定合作单位。</div>
+      </div>
+      <div class="brand-dot-wrap"><div class="brand-dot"></div></div>
+      <div style="flex:1"></div>
+    </div>
+    <div class="brand-item">
+      <div style="flex:1"></div>
+      <div class="brand-dot-wrap"><div class="brand-dot" style="background:var(--green);box-shadow:0 0 0 3px rgba(74,124,89,0.3)"></div></div>
+      <div class="brand-content">
+        <div class="brand-year">2024—今</div>
+        <div class="brand-text">重点发展康养项目存量和增量资产的投资咨询业务，同步发展以"九雅拾乐"为品牌的"疗程+课程+旅程"三程结合康养旅居游学业务，帮助50+新中老年人开启健康快乐的全新生活方式。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA STRATEGY -->
+<section class="media" id="media">
+  <div class="section-header">
+    <div class="section-tag">MEDIA STRATEGY</div>
+    <h2 class="section-title">新媒体传播<span>·品牌战略</span></h2>
+    <p class="section-desc">对标安徽"康养广德"2.02亿传播触达，打造鸿翔健康城专属新媒体康养品牌</p>
+  </div>
+  <div class="media-grid">
+    <div class="media-card">
+      <div class="media-icon">🎬</div>
+      <div class="media-title">银发达人·沉浸种草</div>
+      <div class="media-desc">邀请500万-3000万粉丝银发类头部博主（时尚自律型、乡村生活型、探店银发型），以"我在怀来的一天"Vlog沉浸式植入生活场景，展现健康城的人间烟火气</div>
+      <div class="media-kpi"><div class="kv">S级</div><div class="kl">1-2位头部达人<br>品牌背书+口碑引爆</div></div>
+    </div>
+    <div class="media-card">
+      <div class="media-icon">📸</div>
+      <div class="media-title">中腰部博主·精准种草</div>
+      <div class="media-desc">10万-100万粉丝的康养探店、健康养生、育儿专家（子女视角）达人6-8位，精准触达目标客群，深度评测康养城适老化设施与医护响应</div>
+      <div class="media-kpi"><div class="kv">A级</div><div class="kl">6-8位中腰部达人<br>精准引流+咨询转化</div></div>
+    </div>
+    <div class="media-card">
+      <div class="media-icon">💬</div>
+      <div class="media-title">真实住户·口碑裂变</div>
+      <div class="media-desc">20+位真实住户KOC，通过"以体换宣"模式，免费入住3-14天深度体验后创作内容，家属转发参与话题挑战，形成终身忠诚传播</div>
+      <div class="media-kpi"><div class="kv">B级</div><div class="kl">20+位素人KOC<br>日常种草+口碑裂变</div></div>
+    </div>
+    <div class="media-card">
+      <div class="media-icon">📱</div>
+      <div class="media-title">抖音·短视频矩阵</div>
+      <div class="media-desc">抖音"爷爷奶奶"相关视频播放量106亿次，银发达人77位+粉丝百万。聚焦"探院型"内容，直接面向潜在客户，转化率极高</div>
+      <div class="media-kpi"><div class="kv">106亿</div><div class="kl">银发内容播放量<br>最大流量风口</div></div>
+    </div>
+    <div class="media-card">
+      <div class="media-icon">📖</div>
+      <div class="media-title">小红书·种草阵地</div>
+      <div class="media-desc">60岁以上老年创作者两年增长3倍，月活超3000万。打造"代际沟通"内容，Z世代带父母体验系列，触达90/00后子女决策群体</div>
+      <div class="media-kpi"><div class="kv">3000万</div><div class="kl">小红书老年月活<br>精准子女决策群</div></div>
+    </div>
+    <div class="media-card">
+      <div class="media-icon">📡</div>
+      <div class="media-title">微信视频号·私域沉淀</div>
+      <div class="media-desc">银发群体重度活跃平台，联动九雅拾乐挑战赛，构建私域社群矩阵，参考山东广电《乐享银龄》百万银龄覆盖模式</div>
+      <div class="media-kpi"><div class="kv">1.61亿</div><div class="kl">60岁+网民规模<br>银发流量主赛道</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <h2>开启您的<span>康养新生活</span></h2>
+  <p>现房即住 · 7天免费试住 · 医护全程保障 · 高铁半小时达京</p>
+  <div class="cta-btns">
+    <a href="tel:400-xxx-xxxx" class="btn-primary" style="font-size:18px">📞 立即咨询</a>
+    <a href="#" class="btn-secondary" style="color:white">🗓️ 预约参观</a>
+    <a href="#" class="btn-secondary" style="color:white">📱 下载APP</a>
+  </div>
+  <div class="cta-info">
+    <div class="cta-info-item">📍 地址：<span>河北省张家口市怀来县鸿翔健康城</span></div>
+    <div class="cta-info-item">🚄 交通：<span>京张高铁怀来站，下车即达</span></div>
+    <div class="cta-info-item">⏰ 服务：<span>24小时接待，全年无休</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">百年康养 · 鸿翔健康城</div>
+      <div class="tagline">
+        京西一站式退休生活医康养居综合体<br>
+        总占地1070亩 · 医疗·康复·养老·旅居·智慧
+      </div>
+      <div class="footer-contact">
+        <a href="#">📞 咨询热线：400-XXX-XXXX</a>
+        <a href="#">📍 河北省张家口市怀来县</a>
+        <a href="#">✉️ contact@hongxianghealthcity.com</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>项目信息</h4>
+      <a href="#intro">项目简介</a>
+      <a href="#location">区位优势</a>
+      <a href="#facilities">核心配套</a>
+      <a href="#pricing">入住价格</a>
+    </div>
+    <div class="footer-col">
+      <h4>服务产品</h4>
+      <a href="#services">基础服务</a>
+      <a href="#services">分级照护</a>
+      <a href="#seasons">四季旅居</a>
+      <a href="#services">九雅拾乐</a>
+    </div>
+    <div class="footer-col">
+      <h4>关于百年康养</h4>
+      <a href="#brand">品牌历程</a>
+      <a href="#">法国薇姿合作</a>
+      <a href="#">九雅拾乐老年大学</a>
+      <a href="#">投资咨询业务</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 百年康养·鸿翔健康城 All Rights Reserved</div>
+    <div class="footer-badges">
+      <span class="footer-badge">中华老人文化交流促进会 指定合作单位</span>
+      <span class="footer-badge">全国文化康养活动基地</span>
+      <span class="footer-badge">九雅拾乐OMO老年大学</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Tab switching
+function switchTab(id) {
+  document.querySelectorAll('.service-tab').forEach((t, i) => {
+    const ids = ['basic', 'care', 'tourism', 'value'];
+    t.classList.toggle('active', ids[i] === id);
+  });
+  document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+// Nav active state on scroll
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href.length > 1) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
